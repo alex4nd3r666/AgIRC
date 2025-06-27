@@ -5,43 +5,22 @@
 #include <AUI/Platform/APlatform.h>
 #include <AUI/View/ADrawableView.h>
 #include <AUI/View/AProgressBar.h>
+#include <AUI/View/ASpacerFixed.h>
 
 using namespace declarative;
 
 MainWindow::MainWindow(_<MyUpdater> updater)
   : AWindow("Project template app", 300_dp, 200_dp), mUpdater(std::move(updater)) {
-    setContents(Centered { Vertical {
-      Centered { Icon { ":img/icon.svg" } with_style { FixedSize(64_dp) } },
-      Centered { Label { "Hello world from AUI!" } },
-      _new<AButton>("Visit GitHub repo")
-          .connect(&AView::clicked, this, [] { APlatform::openUrl("https://github.com/aui-framework/aui"); }),
-      _new<AButton>("Visit docs")
-          .connect(&AView::clicked, this, [] { APlatform::openUrl("https://aui-framework.github.io/"); }),
-      _new<AButton>("Submit an issue")
-          .connect(
-              &AView::clicked, this, [] { APlatform::openUrl("https://github.com/aui-framework/aui/issues/new"); }),
-      CustomLayout {} & mUpdater->status.readProjected([&updater = mUpdater](const std::any& status) -> _<AView> {
-          if (std::any_cast<AUpdater::StatusIdle>(&status)) {
-              return _new<AButton>("Check for updates").connect(&AView::clicked, slot(updater)::checkForUpdates);
-          }
-          if (std::any_cast<AUpdater::StatusCheckingForUpdates>(&status)) {
-              return Label { "Checking for updates..." };
-          }
-          if (auto downloading = std::any_cast<AUpdater::StatusDownloading>(&status)) {
-              return Vertical {
-                  Label { "Downloading..." },
-                  _new<AProgressBar>() & downloading->progress,
-              };
-          }
-          if (std::any_cast<AUpdater::StatusWaitingForApplyAndRestart>(&status)) {
-              return _new<AButton>("Apply update and restart")
-                  .connect(&AView::clicked, slot(updater)::applyUpdateAndRestart);
-          }
-          return nullptr;
-      }),
-      Label { "Btw, 2 + 2 = {}"_format(sum(2, 2)) },
-      Label { "Version: " AUI_PP_STRINGIZE(AUI_CMAKE_PROJECT_VERSION) },
-    } });
+    setContents(Vertical {
+      Horizontal {
+
+      } with_style { BackgroundSolid {0x000_rgb} },
+      Horizontal {
+        Vertical { Label { "PRAISE THE CODE" }, SpacerFixed(32_dp, ) } with_style {
+          BackgroundSolid { 0xff0000_rgb } },
+        Vertical {} with_style { BackgroundSolid { 0xff00_rgb } },
+      } with_style { BackgroundSolid { 0xff_rgb } } }
+    );
 }
 
 int MainWindow::sum(int a, int b) { return a + b; }

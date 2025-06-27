@@ -1,13 +1,13 @@
 # Standard routine
 cmake_minimum_required(VERSION 3.16)
-project(example_app
+project(AgIRC
         VERSION 0.0.10 # CI_PROJECT_VERSION
     )
 
 option(BUILD_SHARED_LIBS "Build shared libs" OFF)
 option(AUIB_FORCE_PRECOMPILED "AUI.Boot: force precompiled dependencies" OFF)
 
-set(AUI_VERSION v7.0.1)
+set(AUI_VERSION v7.1.2)
 
 # Use AUI.Boot
 file(
@@ -37,7 +37,7 @@ aui_enable_tests(${PROJECT_NAME})
 
 # Setup icon, display name, etc
 aui_app(TARGET ${PROJECT_NAME}
-        NAME "AUI App Example"
-        VENDOR "AUI Project"
+        NAME "Argentum IRC"
+        VENDOR "ARGENTUM"
         ICON "assets/img/icon.svg"
 )
