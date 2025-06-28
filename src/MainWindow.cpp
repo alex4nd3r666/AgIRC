@@ -29,7 +29,8 @@ MainWindow::MainWindow(_<MyUpdater> updater)
         setContents(Vertical {
           Horizontal {} with_style { BackgroundSolid { 0x000_rgb }, FixedSize({}, 20_dp) }, 
           Horizontal { 
-                Vertical {} with_style { BackgroundSolid { 0xff0000_rgb }, MinSize(32_dp,320_dp) }, 
+                Vertical { SpacerExpanding() } with_style {
+              BackgroundSolid { 0xff0000_rgb }, MinSize(48_dp, 320_dp), Expanding() }, 
                 Vertical {},
             }
         });
